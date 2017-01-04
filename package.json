@@ -24,7 +24,8 @@
     "cordova-fetch": "^1.0.1",
     "q": "1.0.1",
     "shelljs": "0.3.0",
-    "valid-identifier": "0.0.1"
+    "valid-identifier": "0.0.1",
+    "weexpack-common": "git+https://github.com/weexteam/weexpack-common.git"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
@@ -35,9 +36,5 @@
     "jshint": "jshint index.js spec/create.spec.js",
     "jasmine": "jasmine spec/create.spec.js"
   },
-  "contributors": [
-
-  ]
+  "contributors": []
 }
-
-

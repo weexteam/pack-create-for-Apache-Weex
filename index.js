@@ -20,14 +20,14 @@
 var path          = require('path'),
     fs            = require('fs'),
     shell         = require('shelljs'),
-    events        = require('cordova-common').events,
+    events        = require('weexpack-common').events,
     Q             = require('q'),
-    CordovaError  = require('cordova-common').CordovaError,
-    ConfigParser  = require('cordova-common').ConfigParser,
+    CordovaError  = require('weexpack-common').CordovaError,
+    ConfigParser  = require('weexpack-common').ConfigParser,
     fetch         = require('cordova-fetch'),
     url           = require('url'),
     validateIdentifier = require('valid-identifier'),
-    CordovaLogger = require('cordova-common').CordovaLogger.get();
+    CordovaLogger = require('weexpack-common').CordovaLogger.get();
 // Global configuration paths
 var global_config_path = process.env.CORDOVA_HOME;
 if (!global_config_path) {
