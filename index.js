@@ -70,7 +70,7 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
         events.emit('warn', 'Using detached weexpack-create');
 
         if (!dir) {
-            throw new CordovaError('Directory not specified. See `weexpack help`.');
+            throw new CordovaError('Directory not specified. See `weexpack --help`.');
         }
 
         //read projects .cordova/config.json file for project settings
