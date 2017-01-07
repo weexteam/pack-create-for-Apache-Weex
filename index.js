@@ -67,7 +67,6 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
     var argumentCount = arguments.length;
     return Q.fcall(function() {
         events = setupEvents(extEvents);
-        events.emit('warn', 'Using detached weexpack-create');
 
         if (!dir) {
             throw new CordovaError('Directory not specified. See `weexpack --help`.');

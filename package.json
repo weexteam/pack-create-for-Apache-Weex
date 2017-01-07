@@ -19,8 +19,6 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "cordova-app-hello-world": "^3.11.0",
-    "cordova-common": "^1.4.1",
     "cordova-fetch": "^1.0.1",
     "q": "1.0.1",
     "shelljs": "0.3.0",
