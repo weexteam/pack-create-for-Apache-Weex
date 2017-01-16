@@ -1,6 +1,6 @@
 {
   "name": "weexpack-create",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "weexpack create module. Creates new project from default or template",
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
     "q": "1.0.1",
     "shelljs": "0.3.0",
     "valid-identifier": "0.0.1",
-    "weexpack-common": "git+https://github.com/weexteam/weexpack-common.git"
+    "weexpack-common": "^0.1.0"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
