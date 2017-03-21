@@ -4,9 +4,9 @@
   "description": "a weex project",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "weex-builder src dist",
     "build_plugin": "webpack --config ./tools/webpack.config.plugin.js --color",
-    "dev": "webpack --watch",
+    "dev": "weex-builder src dist -w",
     "serve": "serve -p 8080"
   },
   "keywords": [
@@ -22,7 +22,8 @@
     "eslint": "^3.5.0",
     "serve": "^1.4.0",
     "webpack": "^1.13.2",
-    "weex-loader": "^0.3.3"
+    "weex-loader": "^0.3.3",
+    "weex-builder":"^0.2.6"
   },
   "dependencies": {
     "weex-html5": "^0.3.2",
