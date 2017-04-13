@@ -350,15 +350,15 @@ function copyTemplateFiles(templateDir, projectDir, isSubDir) {
             }); 
         }
         // create src/index.we not index.vue
-        var isForceWeFile = process.argv.indexOf('--we');
+        var isForceWeFile = process.argv.indexOf('--we')>0;
         // Copy each template file after filters
         for (var i = 0; i < templateFiles.length; i++) {
             copyPath = path.resolve(templateDir, templateFiles[i]);   
             if (isForceWeFile && templateFiles[i].indexOf('src') >= 0) {
               copyPath = path.resolve(templateDir, 'weex-src/index.we');
               shell.cp('-R', copyPath, path.join(projectDir, 'src'));
-            } else if(isForceWeFile && templateFiles[i].indexOf('web') >= 0) {
-              shell.cp('-R', copyPath, projectDir);
+            } else if(isForceWeFile && templateFiles[i] == 'web') {
+              // shell.cp('-R', copyPath, projectDir);
               shell.cp('-Rf', path.resolve(templateDir, 'weex-src/web'), projectDir);
             } else {
               shell.cp('-R', copyPath, projectDir);

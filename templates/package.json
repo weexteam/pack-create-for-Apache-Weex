@@ -4,9 +4,9 @@
   "description": "a weex project",
   "main": "index.js",
   "scripts": {
-    "build": "weex-builder src dist && webpack --env.web",
+    "build": "webpack",
     "build_plugin": "webpack --config ./tools/webpack.config.plugin.js --color",
-    "dev": "webpack --watch",
+    "dev": "weex-builder src dist -w",
     "serve": "webpack-dev-server --config webpack.dev.js -p --open"
   },
   "keywords": [
@@ -19,7 +19,8 @@
     "vue-router": "^2.1.1",
     "vuex": "^2.1.1",
     "vuex-router-sync": "^4.0.1",
-    "weex-vue-render": "^0.1.4"
+    "weex-html5": "^0.4.1",
+    "weex-vue-render": "^0.11.2"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -29,10 +30,10 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-runtime": "^6.9.2",
     "css-loader": "^0.26.1",
-    "serve": "^1.4.0",
     "vue-loader": "^10.0.2",
     "vue-template-compiler": "^2.1.8",
     "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2",
     "weex-builder": "^0.2.6",
     "weex-loader": "^0.4.1"
   },

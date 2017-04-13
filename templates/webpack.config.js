@@ -12,14 +12,7 @@ const weexEntry = {};
 const vueWebTemp = 'temp';
 const hasPluginInstalled = fs.existsSync('./web/plugin.js');
 
-const plugins = [
-  new webpack.optimize.UglifyJsPlugin({minimize: true}),
-  new webpack.BannerPlugin({
-    banner: '// { "framework": "Vue" } \n',
-    raw: true,
-    exclude: 'Vue'
-  })
-];
+
 
 function getEntryFileContent(entryPath, vueFilePath) {
   const relativePath = pathTo.relative(pathTo.join(entryPath, '../'), vueFilePath);
@@ -51,11 +44,14 @@ function walk(dir) {
         if (fileType && extname !== fileType) {
           console.log('Error: This is not a good practice when you use ".we" and ".vue" togither!');
         }
-        const entryFile = pathTo.join(vueWebTemp, dir, pathTo.basename(file, extname) + '.js');
-        fs.outputFileSync(pathTo.join(entryFile), getEntryFileContent(entryFile, fullpath));
         const name = pathTo.join(dir, pathTo.basename(file, extname));
+        if (extname === '.vue') {
+          const entryFile = pathTo.join(vueWebTemp, dir, pathTo.basename(file, extname) + '.js');
+          fs.outputFileSync(pathTo.join(entryFile), getEntryFileContent(entryFile, fullpath));
+          
+          entry[name] = pathTo.join(__dirname, entryFile) + '?entry=true';
+        } 
         weexEntry[name] = fullpath + '?entry=true';
-        entry[name] = pathTo.join(__dirname, entryFile) + '?entry=true';
       } else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
         const subdir = pathTo.join(dir, file);
         walk(subdir);
@@ -65,7 +61,15 @@ function walk(dir) {
 
 walk();
 console.log(entry);
-// web need vue-laoder
+// web need vue-loader
+const plugins = [
+  new webpack.optimize.UglifyJsPlugin({minimize: true}),
+  new webpack.BannerPlugin({
+    banner: '// { "framework": ' + (fileType === '.vue' ? '"Vue"' : '"Weex"') + '} \n',
+    raw: true,
+    exclude: 'Vue'
+  })
+];
 const webConfig = {
   context: pathTo.join(__dirname, ''),
   entry: entry,
@@ -127,9 +131,6 @@ const weexConfig = {
 
 var exports = [webConfig, weexConfig];
 
-if (needWeb) {
-  exports = webConfig;
-}
 if (fileType === '.we') {
   exports = weexConfig;
 }
