@@ -2,11 +2,6 @@ const pathTo = require('path');
 const fs = require('fs-extra');
 const webpack = require('webpack');
 
-
-const needWeb = process.argv;
-
-console.log(needWeb);
-
 const entry = {};
 const weexEntry = {};
 const vueWebTemp = 'temp';
