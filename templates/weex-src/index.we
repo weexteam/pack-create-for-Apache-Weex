@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <image src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/7d42775b8f0d0c86589082dc9ee179c2.png" class="bannar-image"/>
+      <image src="http://img1.vued.vanthink.cn/vued08aa73a9ab65dcbd360ec54659ada97c.png" class="bannar-image"/>
       <text class="message">{{ message }}</text>
       <text class="quotes">{{ quotes }}</text>    
   </div>
@@ -14,8 +14,8 @@
   }
 
   .bannar-image{
-    width:200;
-    height:200;
+    width: 320;
+    height: 156;
   }
   .message{
     padding-top: 20;
@@ -32,8 +32,8 @@
 <script>
   module.exports = {
     data: {
-      message: 'Welcome to Use Weexpack!',
-      quotes: 'A Tool To Build WEEX Faster',
+      message: 'Welcome to Use Weex!',
+      quotes: 'You can try vue to build weex project',
     }
   }
 </script>

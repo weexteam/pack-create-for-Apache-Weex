@@ -344,16 +344,30 @@ function copyTemplateFiles(templateDir, projectDir, isSubDir) {
         templateFiles = fs.readdirSync(templateDir);
         // Remove directories, and files that are unwanted
         if (!isSubDir) {
-            var excludes = ['RELEASENOTES.md' , '.git', 'NOTICE', 'LICENSE', 'COPYRIGHT', '.npmignore'];
+            var excludes = ['RELEASENOTES.md' , '.git', 'NOTICE', 'LICENSE', 'COPYRIGHT', '.npmignore', 'weex-src'];
             templateFiles = templateFiles.filter( function (value) { 
                 return excludes.indexOf(value) < 0; 
             }); 
         }
-        // Copy each template file after filter
+        // create src/index.we not index.vue
+        var isForceWeFile = process.argv.indexOf('--we')>0;
+        // Copy each template file after filters
         for (var i = 0; i < templateFiles.length; i++) {
-            copyPath = path.resolve(templateDir, templateFiles[i]);
-            shell.cp('-R', copyPath, projectDir);
+            copyPath = path.resolve(templateDir, templateFiles[i]);   
+            if (isForceWeFile && templateFiles[i].indexOf('src') >= 0) {
+              copyPath = path.resolve(templateDir, 'weex-src/index.we');
+              shell.cp('-R', copyPath, path.join(projectDir, 'src'));
+            } else if(isForceWeFile && templateFiles[i] == 'web') {
+              // shell.cp('-R', copyPath, projectDir);
+              shell.cp('-Rf', path.resolve(templateDir, 'weex-src/web'), projectDir);
+            } else {
+              shell.cp('-R', copyPath, projectDir);
+            }
+          
+            
         }
+        
+        
     }  
 }
 
