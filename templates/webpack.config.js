@@ -60,7 +60,6 @@ function walk(dir) {
 }
 
 walk();
-console.log(entry);
 // web need vue-loader
 const plugins = [
   new webpack.optimize.UglifyJsPlugin({minimize: true}),
