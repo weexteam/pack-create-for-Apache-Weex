@@ -10,7 +10,7 @@ var isWin = /^win/.test(process.platform);
 
 
 function getEntryFileContent(entryPath, vueFilePath) {
-  const relativePath = pathTo.relative(pathTo.join(entryPath, '../'), vueFilePath);
+  let relativePath = pathTo.relative(pathTo.join(entryPath, '../'), vueFilePath);
   let contents = '';
   if (hasPluginInstalled) {
     const plugindir = pathTo.resolve('./web/plugin.js');
