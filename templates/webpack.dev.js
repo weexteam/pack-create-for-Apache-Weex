@@ -1,6 +1,6 @@
 const configs = require('./webpack.config.js');
 const webpack = require('webpack');
-const ip = require('ip').address();
+const ip = require('quick-local-ip').getLocalIP4();
 const pathTo = require('path');
 const chalk = require('chalk');
 let config = Array.isArray(configs) ? configs[0] : configs;

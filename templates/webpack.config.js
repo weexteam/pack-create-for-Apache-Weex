@@ -6,7 +6,7 @@ const entry = {};
 const weexEntry = {};
 const vueWebTemp = 'temp';
 const hasPluginInstalled = fs.existsSync('./web/plugin.js');
-
+var isWin = /^win/.test(process.platform);
 
 
 function getEntryFileContent(entryPath, vueFilePath) {
@@ -15,6 +15,9 @@ function getEntryFileContent(entryPath, vueFilePath) {
   if (hasPluginInstalled) {
     const plugindir = pathTo.resolve('./web/plugin.js');
     contents = 'require(\'' + plugindir + '\') \n';
+  }
+  if (isWin) {
+    relativePath.replace(/\\/g,'\\\\');
   }
   contents += 'var App = require(\'' + relativePath + '\')\n';
   contents += 'App.el = \'#root\'\n';
