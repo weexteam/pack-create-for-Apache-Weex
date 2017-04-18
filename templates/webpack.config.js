@@ -17,7 +17,7 @@ function getEntryFileContent(entryPath, vueFilePath) {
     contents = 'require(\'' + plugindir + '\') \n';
   }
   if (isWin) {
-    relativePath.replace(/\\/g,'\\\\');
+    relativePath = relativePath.replace(/\\/g,'\\\\');
   }
   contents += 'var App = require(\'' + relativePath + '\')\n';
   contents += 'App.el = \'#root\'\n';
