@@ -1,50 +1,38 @@
 {
-  "name": "weex",
-  "version": "1.0.0",
-  "description": "a weex project",
+  "name": "weexpack-create",
+  "version": "0.1.10-beta2",
+  "description": "weexpack create module. Creates new project from default or template",
   "main": "index.js",
-  "scripts": {
-    "start": "npm run serve",
-    "build": "webpack",
-    "build_plugin": "webpack --config ./tools/webpack.config.plugin.js --color",
-    "dev": "webpack --config webpack.config.js --watch",
-    "serve": "webpack-dev-server --config webpack.dev.js --progress --watch --open"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weexteam/weexpack-create"
   },
   "keywords": [
-    "weex"
+    "weex",
+    "create",
+    "weexteam",
+    "weexpack"
   ],
-  "author": "",
-  "license": "MIT",
+  "author": "weex team",
+  "engines": {
+    "node": ">=0.9.9"
+  },
+  "engineStrict": true,
   "dependencies": {
-    "fs-extra": "^4.0.1",
-    "vue": "^2.1.8",
-    "vue-router": "^2.1.1",
-    "vuex": "^2.1.1",
-    "vuex-router-sync": "^4.0.1",
-    "weex-html5": "^0.4.1",
-    "weex-vue-render": "^0.11.2"
+    "cordova-fetch": "^1.0.1",
+    "q": "1.0.1",
+    "shelljs": "0.3.0",
+    "valid-identifier": "0.0.1",
+    "weexpack-common": "^0.1.0"
   },
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-runtime": "^6.9.2",
-    "css-loader": "^0.26.1",
-    "html-webpack-plugin": "^2.30.1",
-    "ip": "^1.1.5",
-    "raw-loader": "^0.5.1",
-    "script-ext-html-webpack-plugin": "^1.8.5",
-    "vue-loader": "^10.0.2",
-    "vue-template-compiler": "^2.1.8",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2",
-    "webpack-merge": "^4.1.0",
-    "weex-builder": "^0.2.6",
-    "weex-loader": "^0.4.1"
+    "jasmine": "^2.4.1",
+    "jshint": "2.5.8"
   },
-  "optionalDependencies": {
-    "ios-deploy": "^1.9.0"
-  }
+  "scripts": {
+    "test": "npm run jshint && npm run jasmine",
+    "jshint": "jshint index.js spec/create.spec.js",
+    "jasmine": "jasmine spec/create.spec.js"
+  },
+  "contributors": []
 }

@@ -7,7 +7,7 @@ const path = require('path');
 const chalk = require('chalk');
 let config = Array.isArray(configs) ? configs[0] : configs;
 // configs.plugins.push(new webpack.HotModuleReplacementPlugin());
-console.log('server is running! Please open ' + chalk.green('http://' + ip + ':8080/web/index.html'));
+console.log('server is running! Please open ' + chalk.green('http://' + ip + ':8080/'));
 
 /**
  * Webpack Plugins
@@ -26,7 +26,7 @@ module.exports = function() {
        * See: http://webpack.github.io/docs/configuration.html#devtool
        * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
        */
-      devtool: 'cheap-module-source-map',
+      devtool: 'source-map',
       /*
       * Options affecting the resolving of modules.
       *

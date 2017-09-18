@@ -13,6 +13,7 @@ npm-debug.log
 .wafpickle-*
 config.gypi
 CVS
+templates/node_modules
 node_modules/*
 node_module/.bin/*
 .idea/
