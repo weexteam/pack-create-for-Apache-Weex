@@ -271,7 +271,8 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
             if (paths.configXml && !configXmlExists) {
                 shell.cp(paths.configXml, path.join(dir, 'config.xml'));
             }
-            if (paths.jsonNpmShrinkwrap) {
+            var npmShrinkwrapExists = existNpmShtinkwrap(dir)
+            if (paths.jsonNpmShrinkwrap && !npmShrinkwrapExists) {
                 shell.cp(paths.jsonNpmShrinkwrap, path.join(dir, 'npm-shrinkwrap.json'));
             }
         } catch (e) {
@@ -399,6 +400,14 @@ function projectConfig(projectDir) {
     } else if (fs.existsSync(wwwPath)) {
         fs.renameSync(wwwPath, rootPath);
         return wwwPath;
+    }
+    return false;
+}
+
+function existNpmShtinkwrap(projectDir) {
+    var rootPath = path.join(projectDir, 'npm-shrinkwrap.json');
+    if (fs.existsSync(rootPath)) {
+        return rootPath;
     }
     return false;
 }
