@@ -235,6 +235,8 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
         // get stock config.xml, used if template does not contain config.xml
         paths.configXml = path.join(__dirname, 'templates', 'config.xml');
 
+        paths.jsonNpmShrinkwrap = path.join(__dirname, 'templates', 'npm-shrinkwrap.json');
+
         // get stock www; used if template does not contain www
         paths.www = path.join(__dirname, 'templates', 'src');
 
@@ -268,6 +270,9 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
             var configXmlExists = projectConfig(dir); //moves config to root if in www
             if (paths.configXml && !configXmlExists) {
                 shell.cp(paths.configXml, path.join(dir, 'config.xml'));
+            }
+            if (paths.jsonNpmShrinkwrap) {
+                shell.cp(paths.jsonNpmShrinkwrap, path.join(dir, 'npm-shrinkwrap.json'));
             }
         } catch (e) {
             if (!dirAlreadyExisted) {
