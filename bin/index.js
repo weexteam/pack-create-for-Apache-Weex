@@ -115,7 +115,7 @@ module.exports = function (dir, optionalId, optionalName, cfg, extEvents) {
     cfg.lib.www = cfg.lib.www || {};
     cfg.lib.www.url = cfg.lib.www.url || cfg.lib.www.uri;
     if (!cfg.lib.www.url) {
-      cfg.lib.www.url = path.join(__dirname, 'templates');
+      cfg.lib.www.url = path.join(__dirname, '../templates');
     }
     // TODO (kamrik): extend lazy_load for retrieval without caching to allow net urls for --src.
     cfg.lib.www.version = cfg.lib.www.version || 'not_versioned';
@@ -187,12 +187,12 @@ module.exports = function (dir, optionalId, optionalName, cfg, extEvents) {
     }
     var paths = {};
     // get stock config.xml, used if template does not contain config.xml
-    paths.configXml = path.join(__dirname, 'templates', 'config.xml');
-    paths.jsonNpmShrinkwrap = path.join(__dirname, 'templates', 'npm-shrinkwrap.json');
+    paths.configXml = path.join(__dirname, '../templates', 'config.xml');
+    paths.jsonNpmShrinkwrap = path.join(__dirname, '../templates', 'npm-shrinkwrap.json');
     // get stock www; used if template does not contain www
-    paths.www = path.join(__dirname, 'templates', 'src');
+    paths.www = path.join(__dirname, '../templates', 'src');
     // get stock hooks; used if template does not contain hooks
-    paths.hooks = path.join(__dirname, 'templates', 'hooks');
+    paths.hooks = path.join(__dirname, '../templates', 'hooks');
     // ToDo: get stock package.json if template does not contain package.json;
     var dirAlreadyExisted = fs.existsSync(dir);
     if (!dirAlreadyExisted) {
