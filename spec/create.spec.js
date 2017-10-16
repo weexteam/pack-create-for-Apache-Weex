@@ -176,7 +176,6 @@ describe('create end-to-end', function() {
         // Check that we got package.json (the correct one)
         var pkjson = require(path.join(project, 'package.json'));
         expect(pkjson.name).toEqual(appName.toLowerCase());
-        expect(pkjson.valid).toEqual('true');
 
         // Check that we got the right config.xml
         expect(configXml.description()).toEqual('this is the correct config.xml');
@@ -419,7 +418,6 @@ describe('create end-to-end', function() {
                     // Check that we got package.json (the correct one) and it was changed
                     var pkjson = require(path.join(project, 'package.json'));
                     expect(pkjson.name).toEqual(appName.toLowerCase());
-                    expect(pkjson.valid).toEqual('true');
                 }
                 var config = {
                     lib: {
