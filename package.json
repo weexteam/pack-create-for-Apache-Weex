@@ -1,6 +1,6 @@
 {
   "name": "weexpack-create",
-  "version": "0.1.10-beta4",
+  "version": "0.1.10-beta6",
   "description": "weexpack create module. Creates new project from default or template",
   "main": "bin/index.js",
   "repository": {
@@ -35,9 +35,9 @@
   },
   "scripts": {
     "test": "npm run jasmine",
-    "jshint": "jshint index.js spec/create.spec.js",
+    "lint": "eslint src --fix",
     "jasmine": "jasmine spec/create.spec.js",
-    "build": "eslint src --fix && babel src --out-dir bin",
+    "build": "babel src --out-dir bin",
     "prepublish": "npm run build && npm run test"
   },
   "bin": {

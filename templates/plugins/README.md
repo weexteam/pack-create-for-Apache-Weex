@@ -1,8 +1,19 @@
-# use weexpack add plugin 
+# use weex-toolkit add plugin 
 
-#### add a plugin 
+#### Add a plugin 
 
 ``` bash
-weexpack plugin add plugin_name
+weex plugin add plugin_name
 ```
 
+#### Remove a plugin 
+
+``` bash
+weex plugin remove plugin_name
+```
+
+#### List weex plugin
+
+``` bash
+weex plugin list
+```
