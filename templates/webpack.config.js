@@ -111,7 +111,17 @@ const webConfig = {
     }, {
       test: /\.vue(\?[^?]+)?$/,
       use: [{
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          compilerModules: [
+            {
+              postTransformNode: el => {
+                el.staticStyle = `$processStyle(${el.staticStyle})`
+                el.styleBinding = `$processStyle(${el.styleBinding})`
+              }
+            }
+          ]
+        }
       }]
     }]
   },
