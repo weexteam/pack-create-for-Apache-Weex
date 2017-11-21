@@ -1,6 +1,6 @@
 {
   "name": "weexpack-create",
-  "version": "0.1.10-beta7",
+  "version": "0.1.11-beta.2",
   "description": "weexpack create module. Creates new project from default or template",
   "main": "bin/index.js",
   "repository": {

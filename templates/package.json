@@ -17,7 +17,7 @@
     "license": "MIT",
     "dependencies": {
         "fs-extra": "^4.0.1",
-        "vue": "^2.1.8",
+        "vue": "^2.4.3",
         "weex-html5": "^0.4.1",
         "weex-vue-render": "^0.12.21"
     },
@@ -33,12 +33,11 @@
         "ip": "^1.1.5",
         "raw-loader": "^0.5.1",
         "script-ext-html-webpack-plugin": "^1.8.5",
-        "vue-loader": "^10.0.2",
-        "vue-template-compiler": "^2.1.8",
+        "vue-loader": "^12.2.0",
+        "vue-template-compiler": "^2.4.3",
         "webpack": "^2.2.1",
         "webpack-dev-server": "^2.4.2",
         "webpack-merge": "^4.1.0",
-        "weex-builder": "^0.2.6",
         "weex-loader": "^0.5.3"
     },
     "optionalDependencies": {
