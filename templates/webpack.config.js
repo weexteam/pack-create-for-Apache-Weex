@@ -107,7 +107,7 @@ const webConfig = {
       use: [{
         loader: 'babel-loader'
       }],
-      exclude: /node_modules(?!\/.*(weex).*)/
+      exclude: /node_modules(?!(\/|\\).*(weex).*)/
     }, {
       test: /\.vue(\?[^?]+)?$/,
       use: [{
@@ -150,7 +150,7 @@ const weexConfig = {
       use: [{
         loader: 'babel-loader'
       }],
-      exclude: /node_modules(?!\/.*(weex).*)/
+      exclude: /node_modules(?!(\/|\\).*(weex).*)/
     }, {
       test: /\.vue(\?[^?]+)?$/,
       use: [{
@@ -163,6 +163,16 @@ const weexConfig = {
       }]
     }]
   },
+  /*
+   * These options configure whether to polyfill or mock certain Node.js globals and modules. 
+   * This allows code originally written for the Node.js environment to run in other environments like the browser.
+   *
+   * See: https://webpack.js.org/configuration/node/#node
+   */
+  node: {
+    setImmediate: false
+    // See "Other node core libraries" for additional options.
+  }
   /*
    * Add additional plugins to the compiler.
    *
