@@ -172,7 +172,7 @@ const weexConfig = {
   node: {
     setImmediate: false
     // See "Other node core libraries" for additional options.
-  }
+  },
   /*
    * Add additional plugins to the compiler.
    *
