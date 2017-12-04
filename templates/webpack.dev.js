@@ -4,9 +4,8 @@ const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const ip = require('ip').address();
 const chalk = require('chalk');
 const path = require('path');
-const exec = require('child_process').exec;
+const webpack = require('webpack');
 
-const config = Array.isArray(configs) ? configs[0] : configs;
 // configs.plugins.push(new webpack.HotModuleReplacementPlugin());
 console.log('server is running! Please open ' + chalk.green('http://' + ip + ':8080/'));
 /**
@@ -15,17 +14,10 @@ console.log('server is running! Please open ' + chalk.green('http://' + ip + ':8
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
-// build source to jsbundle with watch mode.
-exec('npm run dev', (error, stdout, stderr) => {
-  if (error) {
-    console.log(error.stack)
-  }
-})
-
 /**
- * Webpack configuration
+ * Webpack configuration for browser.
  */
- const previewConfig = webpackMerge(config, {
+ const previewConfig = webpackMerge(configs[0], {
   /*
    * Options affecting the resolving of modules.
    *
@@ -97,5 +89,19 @@ exec('npm run dev', (error, stdout, stderr) => {
     }
   }
 });
+
+/**
+ * Webpack configuration for weex.
+ */
+const weexConfig = webpackMerge(configs[1], {
+  watch: true
+})
+
+// build source to weex_bundle with watch mode.
+webpack(weexConfig, (err, stats) => {
+  if (err) {
+    console.err('COMPILE ERROR:', err.stack)
+  }
+})
 
 module.exports = previewConfig
