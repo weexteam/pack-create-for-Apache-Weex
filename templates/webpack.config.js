@@ -1,4 +1,4 @@
-const pathTo = require('path');
+const path = require('path');
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const entry = {};
@@ -9,14 +9,14 @@ const isWin = /^win/.test(process.platform);
 let fileType = '';
 // Wraping the entry file
 const getEntryFileContent = (entryPath, vueFilePath) => {
-    let relativePath = pathTo.relative(pathTo.join(entryPath, '../'), vueFilePath);
+    let relativePath = path.relative(path.join(entryPath, '../'), vueFilePath);
     let contents = '';
     /**
      * The plugin's logic currently only supports the .we version
      * which will be supported later in .vue
      */
     if (hasPluginInstalled) {
-      const plugindir = pathTo.resolve('./web/plugin.js');
+      const plugindir = path.resolve('./web/plugin.js');
       contents = 'require(\'' + plugindir + '\') \n';
     }
     if (isWin) {
@@ -27,14 +27,15 @@ const getEntryFileContent = (entryPath, vueFilePath) => {
     contents += 'new Vue(App)\n';
     return contents;
   }
-  // Retrieve entry file mappings by function recursion
+
+// Retrieve entry file mappings by function recursion
 const walk = (dir) => {
     dir = dir || '.';
-    const directory = pathTo.join(__dirname, 'src', dir);
+    const directory = path.join(__dirname, 'src', dir);
     fs.readdirSync(directory).forEach((file) => {
-      const fullpath = pathTo.join(directory, file);
+      const fullpath = path.join(directory, file);
       const stat = fs.statSync(fullpath);
-      const extname = pathTo.extname(fullpath);
+      const extname = path.extname(fullpath);
       if (stat.isFile() && extname === '.vue' || extname === '.we') {
         if (!fileType) {
           fileType = extname;
@@ -42,20 +43,21 @@ const walk = (dir) => {
         if (fileType && extname !== fileType) {
           console.log('Error: This is not a good practice when you use ".we" and ".vue" togither!');
         }
-        const name = pathTo.join(dir, pathTo.basename(file, extname));
+        const name = path.join(dir, path.basename(file, extname));
         if (extname === '.vue') {
-          const entryFile = pathTo.join(vueWebTemp, dir, pathTo.basename(file, extname) + '.js');
-          fs.outputFileSync(pathTo.join(entryFile), getEntryFileContent(entryFile, fullpath));
-          entry[name] = pathTo.join(__dirname, entryFile) + '?entry=true';
+          const entryFile = path.join(vueWebTemp, dir, path.basename(file, extname) + '.js');
+          fs.outputFileSync(path.join(entryFile), getEntryFileContent(entryFile, fullpath));
+          entry[name] = path.join(__dirname, entryFile) + '?entry=true';
         }
         weexEntry[name] = fullpath + '?entry=true';
       } else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
-        const subdir = pathTo.join(dir, file);
+        const subdir = path.join(dir, file);
         walk(subdir);
       }
     });
   }
-  // Generate an entry file before writing a webpack configuration
+
+// Generate an entry file before writing a webpack configuration
 walk();
 /**
  * Plugins for webpack configuration.
@@ -82,10 +84,10 @@ const plugins = [
 ];
 // Config for compile jsbundle for web.
 const webConfig = {
-  context: pathTo.join(__dirname, ''),
+  context: path.join(__dirname, ''),
   entry: entry,
   output: {
-    path: pathTo.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].web.js'
   },
   /**
@@ -136,7 +138,7 @@ const webConfig = {
 const weexConfig = {
   entry: weexEntry,
   output: {
-    path: pathTo.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   },
   /*
