@@ -1,19 +1,26 @@
-node_modules
-npm-debug.log
-.idea/*
-*.jar
+# Config
+.idea
+.npmrc
+.svn
 .*.swp
 ._*
 .DS_Store
 .git
 .hg
-.npmrc
 .lock-wscript
-.svn
 .wafpickle-*
 config.gypi
 CVS
-templates/node_modules
+
+# node_modules
+templates/node_modules/*
+node_modules
 node_modules/*
 node_module/.bin/*
-.idea/
+
+npm-debug.log
+
+templates/platforms/*
+web/build/*
+dist
+.temp

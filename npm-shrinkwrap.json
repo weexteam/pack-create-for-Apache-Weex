@@ -1481,6 +1481,11 @@
       "integrity": "sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=",
       "dev": true
     },
+    "de-indent": {
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/de-indent/-/de-indent-1.0.2.tgz",
+      "integrity": "sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0="
+    },
     "debug": {
       "version": "2.6.9",
       "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
@@ -2807,6 +2812,11 @@
       "integrity": "sha1-6CB68cx7MNRGzHC3NLXovhj4jVE=",
       "dev": true
     },
+    "he": {
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/he/-/he-1.1.1.tgz",
+      "integrity": "sha1-k0EP0hsAlzUVH4howvJx80J+I/0="
+    },
     "home-or-tmp": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/home-or-tmp/-/home-or-tmp-2.0.0.tgz",
@@ -4074,6 +4084,20 @@
       "version": "0.0.1",
       "resolved": "https://registry.npmjs.org/valid-identifier/-/valid-identifier-0.0.1.tgz",
       "integrity": "sha1-7x1wk6nTKH4/zpLfkW+GFrI/kLQ="
+    },
+    "vue": {
+      "version": "2.4.4",
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.4.4.tgz",
+      "integrity": "sha512-PCiRmc8ZT1DD5+BN8QUAmnkBefcCLfZVSuhc1u7iu5JoPrSHyyk/+4nehm7k2xVMi8+RFLk5WIHAN14UKF0txw=="
+    },
+    "vue-template-compiler": {
+      "version": "2.4.4",
+      "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.4.4.tgz",
+      "integrity": "sha512-XdHsNi8Z5WqwuFl/Z5eLKgE2DOEEOdMk1aA459uSgvwyy+pjKLBlQWsUpAtoR6o6Wmpujw6NtinAUGuqSTituQ==",
+      "requires": {
+        "de-indent": "1.0.2",
+        "he": "1.1.1"
+      }
     },
     "weexpack-common": {
       "version": "0.1.2",

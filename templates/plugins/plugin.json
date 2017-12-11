@@ -1,0 +1,12 @@
+{
+  "ios": [],
+  "web": [],
+  "android": [
+    {
+      "type": "maven",
+      "name": "actionsheet",
+      "groupId": "org.weex.plugin",
+      "version": "1.0.0"
+    }
+  ]
+}
