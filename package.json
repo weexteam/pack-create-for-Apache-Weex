@@ -1,6 +1,6 @@
 {
   "name": "weexpack-create",
-  "version": "0.1.11-beta.5",
+  "version": "0.2.0",
   "description": "weexpack create module. Creates new project from default or template",
   "main": "bin/index.js",
   "repository": {
@@ -21,24 +21,26 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "cordova-fetch": "^1.0.1",
+    "fs-extra": "^4.0.3",
     "q": "1.0.1",
-    "shelljs": "0.3.0",
+    "shelljs": "^0.7.8",
     "valid-identifier": "0.0.1",
-    "weexpack-common": "^0.1.0"
+    "weexpack-common": "^0.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
     "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "chalk": "^2.3.0",
     "eslint": "^4.9.0",
-    "jasmine": "^2.4.1",
-    "jshint": "2.5.8"
+    "mocha": "^4.0.1"
   },
   "scripts": {
-    "test": "npm run jasmine",
-    "lint": "eslint src --fix",
-    "jasmine": "jasmine spec/create.spec.js",
     "build": "babel src --out-dir bin",
-    "prepublish": "npm run build && npm run test"
+    "dev": "babel src --out-dir bin --watch",
+    "test": "mocha test/create.spec.js",
+    "lint": "eslint src --fix",
+    "prepublish": "npm run lint && npm run build && npm run test"
   },
   "bin": {
     "weexpack-create": "bin/index.js"

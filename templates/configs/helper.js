@@ -8,7 +8,13 @@ const root = (args) => {
 const rootNode = (args) => {
   return path.join(ROOT, args);
 }
+
+const resolve = (dir) => {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   root,
-  rootNode
+  rootNode,
+  resolve
 }
