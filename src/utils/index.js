@@ -32,17 +32,17 @@ const exec = (command, cwd, quiet) => {
 const spawn = (command, cwd, quiet) => {
   return new Promise((resolve, reject) => {
     try {
-      const child = childProcess.spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', [command], { cwd: cwd}, () => {
+      const child = childProcess.spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', [command], { cwd: cwd }, () => {
         resolve();
       });
       child.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
       });
-      
+
       child.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`);
       });
-      
+
       child.on('close', (code) => {
         console.log(`child process exited with code ${code}`);
       });
@@ -59,4 +59,4 @@ const spawn = (command, cwd, quiet) => {
 module.exports = {
   exec,
   spawn
-}
+};

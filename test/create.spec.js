@@ -5,7 +5,7 @@ const shell = require('shelljs');
 const fs = require('fs-extra');
 const expect = require('chai').expect;
 
-const create = require('../bin/index');
+const create = require('../lib/index');
 const helpers = require('./helpers');
 const appName = 'TestBase';
 const tmpDir = helpers.createTemplateDir('create_test');
@@ -68,7 +68,7 @@ describe('create end-to-end', function () {
         'configs',
         '.eslintignore',
         '.eslintrc',
-        '.postcssrc'
+        '.postcssrc.js'
       ];
       shouldBeInclude.forEach(file => {
         expectFileExisted(path.join(project, file));

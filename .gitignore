@@ -23,4 +23,5 @@ npm-debug.log
 templates/platforms/*
 web/build/*
 dist
+lib
 .temp

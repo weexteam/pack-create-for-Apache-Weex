@@ -1,4 +1,4 @@
-const create = require('./bin/index');
-create('./testbuild', '', 'testname', {})
+const create = require('./lib/index');
+create('./testbuild', '', 'testname', {}, '', true)
 .then(() => {
 })
