@@ -1,4 +1,3 @@
-'use strict'
 const path = require('path')
 const config = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -6,7 +5,6 @@ const packageConfig = require('../package.json')
 
 exports.cssLoaders = function (options) {
   options = options || {}
-
   const cssLoader = {
     loader: 'css-loader',
     options: {
@@ -23,7 +21,10 @@ exports.cssLoaders = function (options) {
 
   // generate loader string to be used with extract text plugin
   const generateLoaders = (loader, loaderOptions) => {
-    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
+    let loaders = options.useVue ? [cssLoader] : []
+    if (options.usePostCSS) {
+      loaders.push(postcssLoader)
+    }
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
@@ -32,23 +33,16 @@ exports.cssLoaders = function (options) {
         })
       })
     }
-
-    // Extract CSS when that option is specified
-    // (which is the case during production build)
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'vue-style-loader'
-      })
-    } else {
+    if (options.useVue) {
       return ['vue-style-loader'].concat(loaders)
+    }
+    else {
+      return loaders
     }
   }
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
-    css: generateLoaders(),
-    postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
     scss: generateLoaders('sass'),

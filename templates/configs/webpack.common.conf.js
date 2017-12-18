@@ -113,8 +113,7 @@ const webConfig = {
       test: /\.vue(\?[^?]+)?$/,
       use: [{
         loader: 'vue-loader',
-        options: {
-          ...vueLoaderConfig,
+        options: Object.assign(vueLoaderConfig({useVue: true, usePostCSS: false}), {
           /**
            * important! should use postTransformNode to add $processStyle for
            * inline style prefixing.
@@ -126,7 +125,7 @@ const webConfig = {
               el.styleBinding = `$processStyle(${el.styleBinding})`
             }
           }]
-        }
+        })
       }]
     },
     {
@@ -161,11 +160,12 @@ const weexConfig = {
         loader: 'babel-loader'
       }],
       exclude: /node_modules(?!(\/|\\).*(weex).*)/
-    }, {
+    },
+    {
       test: /\.vue(\?[^?]+)?$/,
       use: [{
         loader: 'weex-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig({useVue: false})
       }]
     }]
   },
@@ -183,4 +183,5 @@ const weexConfig = {
   */
   node: config.nodeConfiguration
 };
+
 module.exports = [webConfig, weexConfig];

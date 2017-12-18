@@ -21,7 +21,7 @@ const helper = require('./helper');
 /**
  * Webpack configuration for browser.
  */
- const devWebpackConfig = webpackMerge(commonConfig[0], {
+const devWebpackConfig = webpackMerge(commonConfig[0], {
   /*
    * Options affecting the resolving of modules.
    *

@@ -26,23 +26,30 @@
         <div class="home-btn"></div>
       </div>
       <div class="qrcode-box">
-        <div class="qrcode" id="qrcode"></div>
+        <a class="qrcode" id="qrcode" target="_blank"></a>
         <p class="qrcode-tips">Use <a target="_blank" href="https://weex-project.io/playground.html">Weex playground app</a> to scan it.</p>
       </div>
     </main>
   </div>
   <script>
     (function(){
+      function getUrlParam (key) {
+        var reg = new RegExp('[?|&]' + key + '=([^&]+)')
+        var match = location.search.match(reg)
+        return match && match[1]
+      }
       function createQRCode (url) {
         var $QR = document.getElementById('qrcode')
         var QR = qrcode(0, 'L')
-        QR.addData(url + '?_wx_tpl=' + url)
+        url += '?_wx_tpl=' + url + '&wh_weex=true'
+        $QR.setAttribute('href', url)
+        QR.addData(url)
         QR.make()
         $QR.innerHTML = QR.createImgTag(6, 12)
       }
       // TODO: get local ip address
       var host = window.location.host;
-      createQRCode(`http://${host}/dist/index.js?wh_weex=true`)
+      createQRCode(`http://${host}/dist/${getUrlParam('page') || 'index.js'}`)
     })();
   </script>
 </body>

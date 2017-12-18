@@ -24,14 +24,13 @@ var Q = require('q');
 var shell = require('shelljs');
 var chalk = require('chalk');
 
-var childProcess = require('child_process');
-
 var validateIdentifier = require('valid-identifier');
 var WeexpackCommon = require('weexpack-common');
 var WeexpackError = WeexpackCommon.CordovaError;
 var WeexpackLogger = WeexpackCommon.CordovaLogger.get();
 var events = WeexpackCommon.events;
 
+var utils = require('./utils');
 /**
  * @desc Sets up to forward events to another instance, or log console.
  * This will make the create internal events visible outside
@@ -73,7 +72,6 @@ var copyTemplateFiles = function copyTemplateFiles(templateDir, projectDir, isSu
     copyPath = path.resolve(templateDir, templateFiles[i]);
     shell.cp('-R', copyPath, projectDir);
   }
-  events.emit('log', 'Create weex project successful.');
 };
 /**
  * @desc check the diretory is empty or not.
@@ -85,28 +83,6 @@ var isEmptyDir = function isEmptyDir(dir) {
     return true;
   }
   return false;
-};
-/**
- * @desc excecute command on `cwd`.
- * @param {string} command 
- * @param {string} cwd 
- * @param {boolean} quiet 
- */
-var exec = function exec(command, cwd, quiet) {
-  return new Promise(function (resolve, reject) {
-    try {
-      var child = childProcess.exec(command, { cwd: cwd, encoding: 'utf8' }, function () {
-        resolve();
-      });
-      if (!quiet) {
-        child.stdout.pipe(process.stdout);
-        child.stderr.pipe(process.stderr);
-      }
-    } catch (e) {
-      console.error('execute command failed :', command);
-      reject(e);
-    }
-  });
 };
 
 /**
@@ -145,7 +121,6 @@ module.exports = function (dir, optionalId, optionalName, cfg, extEvents, autoIn
     }
   }).then(function () {
     // Ready to start!
-    events.emit('log', 'Creating a new weex project.');
     // Todo: maybe you can write some weex config here.
   }).then(function () {
     var templateDir = path.join(__dirname, '../templates');
@@ -157,17 +132,51 @@ module.exports = function (dir, optionalId, optionalName, cfg, extEvents, autoIn
     // Get the file from local diretory.
     copyTemplateFiles(templateDir, dir);
   }).then(function () {
-    if (autoInstall) {
-      console.log('> ' + chalk.green('Installing project dependencies ...'));
-      events.emit('log', 'Installing npm packages in project.');
-      exec('npm install', dir, false).then(function () {
-        console.log('> ' + chalk.green('Initialization finished!') + '\n');
-        console.log('To get started:\n');
-        console.log(chalk.yellow('cd ' + dir));
-        console.log(chalk.yellow('npm start'));
-        console.log('\nDocumentation can be found at https://github.com/weexteam/weexpack-create');
-        events.emit('log', 'Already install npm packages in project.');
+    events.emit('log', 'Installing npm packages in project.');
+    utils.exec('npm install', dir, false).then(function () {
+      var commandsWithDesc = [{
+        name: 'npm start',
+        desc: ['Starts the development server for you to preview your weex page on browser', 'You can also scan the QR code using weex playground to preview weex page on native']
+      }, {
+        name: 'npm run dev',
+        desc: ['Open the code compilation task in watch mode']
+      }, {
+        name: 'npm run ios',
+        desc: ['(Mac only, requires Xcode)', 'Starts the development server and loads your app in an iOS simulator']
+      }, {
+        name: 'npm run android',
+        desc: ['(Requires Android build tools)', 'Starts the development server and loads your app on a connected Android device or emulator']
+      }, {
+        name: 'npm run pack:ios',
+        desc: ['(Mac only, requires Xcode)', 'Packaging ios project into ipa package']
+      }, {
+        name: 'npm run pack:android',
+        desc: ['(Requires Android build tools)', 'Packaging android project into apk package']
+      }, {
+        name: 'npm run pack:web',
+        desc: ['Packaging html5 project into `web/build` folder']
+      }, {
+        name: 'npm test',
+        desc: ['Starts the test runner']
+      }];
+
+      events.emit('log', '\n' + chalk.green('Success! Created ' + path.basename(dir) + ' at ' + dir));
+      events.emit('log', '\nInside that directory, you can run several commands:\n');
+
+      commandsWithDesc.forEach(function (c) {
+        events.emit('log', '\n  ' + chalk.yellow(c.name));
+        c.desc.forEach(function (d) {
+          events.emit('log', '    ' + d);
+        });
       });
-    }
+
+      events.emit('log', '\nTo get started:\n');
+      events.emit('log', chalk.yellow('  cd ' + path.basename(dir)));
+      events.emit('log', chalk.yellow('  npm start'));
+      events.emit('log', '\nEnjoy your hacking time!');
+    }).fail(function (e) {
+      return console.log(e);
+    });
+    if (!autoInstall) {}
   });
 };

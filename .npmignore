@@ -2,3 +2,5 @@ node_modules/*
 
 templates/node_modules
 
+src
+test
