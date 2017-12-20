@@ -29,7 +29,7 @@ const WeexpackError = WeexpackCommon.CordovaError;
 const WeexpackLogger = WeexpackCommon.CordovaLogger.get();
 let events = WeexpackCommon.events;
 
-const utils = require('./utils');
+const utils = require('./utils/index');
 /**
  * @desc Sets up to forward events to another instance, or log console.
  * This will make the create internal events visible outside
@@ -144,14 +144,12 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
     // Get the file from local diretory.
     copyTemplateFiles(templateDir, dir);
   }).then(() => {
-    events.emit('log', 'Installing npm packages in project.');
-
     if (autoInstall) {
       const spinner = ora('downloading dependences');
+      events.emit('log', 'Installing npm packages in project.');
       spinner.start();
       utils.exec('npm install', dir, false).then(() => {
         spinner.stop();
-
         const commandsWithDesc = [
           {
             name: 'npm start',
@@ -207,7 +205,6 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
             ]
           }
         ];
-
         events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
         events.emit('log', '\nInside that directory, you can run several commands:\n');
 
@@ -222,7 +219,12 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
         events.emit('log', chalk.yellow(`  cd ${path.basename(dir)}`));
         events.emit('log', chalk.yellow(`  npm start`));
         events.emit('log', `\nEnjoy your hacking time!`);
-      }).fail(e => console.log(e));
+      }).catch(e => {
+        events.emit('error', e);
+      });
+    }
+    else {
+      events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
     }
   });
 };

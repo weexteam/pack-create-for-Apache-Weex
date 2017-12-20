@@ -1,4 +1,4 @@
-const create = require('./lib/index');
-create('./testbuild', '', 'testname', {}, '', true)
-.then(() => {
-})
+const weexCreate = require('./src/index');
+module.exports = function (dir, optionalId, optionalName, cfg, extEvents, autoInstall) {
+    return weexCreate(dir, optionalId, optionalName, cfg, extEvents, autoInstall);
+}

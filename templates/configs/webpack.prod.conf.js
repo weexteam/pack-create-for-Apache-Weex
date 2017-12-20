@@ -7,6 +7,8 @@ const path = require('path');
 const webpack = require('webpack');
 const helpers = require('./helper');
 const config = require('./config');
+
+console.log(`${chalk.green(`Package web project at ${chalk.bold(path.resolve('./web/build'))}!`)}`)
 /**
  * Webpack Plugins
  */
@@ -58,18 +60,6 @@ const productionConfig = webpackMerge(commonConfig[0], {
     chunkFilename: '[id].[chunkhash].chunk.js'
   },
   /*
-   * Options affecting the resolving of modules.
-   *
-   * See: http://webpack.github.io/docs/configuration.html#module
-   */
-  module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.prod.productionSourceMap,
-      extract: true,
-      usePostCSS: true
-    })
-  },
-  /*
    * Add additional plugins to the compiler.
    *
    * See: http://webpack.github.io/docs/configuration.html#plugins
@@ -86,7 +76,7 @@ const productionConfig = webpackMerge(commonConfig[0], {
         'NODE_ENV': config.prod.env
       }
     }),
-    /**
+    /*
      * Plugin: UglifyJsPlugin
      * Description: Minimize all JavaScript output of chunks.
      * Loaders are switched into minimizing mode.

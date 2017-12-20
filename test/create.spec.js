@@ -5,7 +5,7 @@ const shell = require('shelljs');
 const fs = require('fs-extra');
 const expect = require('chai').expect;
 
-const create = require('../lib/index');
+const create = require('../src/index');
 const helpers = require('./helpers');
 const appName = 'TestBase';
 const tmpDir = helpers.createTemplateDir('create_test');

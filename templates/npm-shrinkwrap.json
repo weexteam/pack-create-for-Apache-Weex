@@ -793,6 +793,20 @@
                 "loader-utils": "0.2.17",
                 "mkdirp": "0.5.1",
                 "object-assign": "4.1.1"
+            },
+            "dependencies": {
+                "loader-utils": {
+                    "version": "0.2.17",
+                    "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.17.tgz",
+                    "integrity": "sha1-+G5jdNQyBabmxg6RlvF8Apm/s0g=",
+                    "dev": true,
+                    "requires": {
+                        "big.js": "3.1.3",
+                        "emojis-list": "2.1.0",
+                        "json5": "0.5.1",
+                        "object-assign": "4.1.1"
+                    }
+                }
             }
         },
         "babel-messages": {
@@ -2847,7 +2861,7 @@
                 "is-path-in-cwd": "1.0.0",
                 "p-map": "1.2.0",
                 "pify": "3.0.0",
-                "rimraf": "2.6.1"
+                "rimraf": "2.6.2"
             },
             "dependencies": {
                 "pify": {
@@ -4273,7 +4287,7 @@
                         "object-assign": "4.1.1",
                         "pify": "2.3.0",
                         "pinkie-promise": "2.0.1",
-                        "rimraf": "2.6.1"
+                        "rimraf": "2.6.2"
                     }
                 },
                 "globby": {
@@ -5401,7 +5415,7 @@
                 "graceful-fs": "4.1.11",
                 "inherits": "2.0.3",
                 "mkdirp": "0.5.1",
-                "rimraf": "2.6.1"
+                "rimraf": "2.6.2"
             }
         },
         "function-bind": {
@@ -5857,6 +5871,20 @@
                 "lodash": "4.17.4",
                 "pretty-error": "2.1.1",
                 "toposort": "1.0.3"
+            },
+            "dependencies": {
+                "loader-utils": {
+                    "version": "0.2.17",
+                    "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.17.tgz",
+                    "integrity": "sha1-+G5jdNQyBabmxg6RlvF8Apm/s0g=",
+                    "dev": true,
+                    "requires": {
+                        "big.js": "3.1.3",
+                        "emojis-list": "2.1.0",
+                        "json5": "0.5.1",
+                        "object-assign": "4.1.1"
+                    }
+                }
             }
         },
         "htmlescape": {
@@ -6840,7 +6868,7 @@
                 "optimist": "0.6.1",
                 "qjobs": "1.1.5",
                 "range-parser": "1.2.0",
-                "rimraf": "2.6.1",
+                "rimraf": "2.6.2",
                 "safe-buffer": "5.1.1",
                 "socket.io": "1.7.3",
                 "source-map": "0.5.7",
@@ -6965,6 +6993,18 @@
                     "integrity": "sha1-rqdNXmHB+JlhO/ZL2mbUx48v0X0=",
                     "dev": true
                 },
+                "loader-utils": {
+                    "version": "0.2.17",
+                    "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.17.tgz",
+                    "integrity": "sha1-+G5jdNQyBabmxg6RlvF8Apm/s0g=",
+                    "dev": true,
+                    "requires": {
+                        "big.js": "3.1.3",
+                        "emojis-list": "2.1.0",
+                        "json5": "0.5.1",
+                        "object-assign": "4.1.1"
+                    }
+                },
                 "lodash": {
                     "version": "3.10.1",
                     "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz",
@@ -7073,15 +7113,14 @@
             "dev": true
         },
         "loader-utils": {
-            "version": "0.2.17",
-            "resolved": "http://registry.npm.taobao.org/loader-utils/download/loader-utils-0.2.17.tgz",
-            "integrity": "sha1-+G5jdNQyBabmxg6RlvF8Apm/s0g=",
+            "version": "1.1.0",
+            "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-1.1.0.tgz",
+            "integrity": "sha1-yYrvSIvM7aL/teLeZG1qdUQp9c0=",
             "dev": true,
             "requires": {
                 "big.js": "3.1.3",
                 "emojis-list": "2.1.0",
-                "json5": "0.5.1",
-                "object-assign": "4.1.1"
+                "json5": "0.5.1"
             }
         },
         "locate-path": {
@@ -7640,7 +7679,7 @@
                 "npmlog": "4.1.2",
                 "osenv": "0.1.4",
                 "request": "2.79.0",
-                "rimraf": "2.6.1",
+                "rimraf": "2.6.2",
                 "semver": "5.3.0",
                 "tar": "2.2.1",
                 "which": "1.3.0"
@@ -9864,9 +9903,9 @@
             }
         },
         "rimraf": {
-            "version": "2.6.1",
-            "resolved": "http://registry.npm.taobao.org/rimraf/download/rimraf-2.6.1.tgz",
-            "integrity": "sha1-wjOOxkPfeht/5cVPqG9XQopV8z0=",
+            "version": "2.6.2",
+            "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.6.2.tgz",
+            "integrity": "sha512-lreewLK/BlghmxtfH36YYVg1i8IAce4TI7oao75I1g245+6BctqTVQiBP3YUJ9C6DQOXJmkYR9X9fCLtCOJc5w==",
             "requires": {
                 "glob": "7.1.2"
             }
@@ -12352,9 +12391,9 @@
             "integrity": "sha1-hcj4IK4hfslVDDWf/m5nV78i21c="
         },
         "weex-loader": {
-            "version": "0.6.1",
-            "resolved": "https://registry.npmjs.org/weex-loader/-/weex-loader-0.6.1.tgz",
-            "integrity": "sha512-RsK8MB1Ke5bsp9/jRXDCqML0s6SIKTQcI2SvFi7z9QE99UN0oj82+b/FwaN/TQBeOX9B6UpUSHGDxRCTE+OjpA==",
+            "version": "0.6.5",
+            "resolved": "https://registry.npmjs.org/weex-loader/-/weex-loader-0.6.5.tgz",
+            "integrity": "sha512-Jc/AvJYF4inPj5T4KZy02l9JZM4wx1FL/eH2YjRietAWRJaiue3TZldv+J8IAHZTHzRkUllJyCaQU9AyUMPS6Q==",
             "dev": true,
             "requires": {
                 "babel-loader": "6.4.1",
@@ -12362,7 +12401,7 @@
                 "babel-preset-es2015": "6.24.1",
                 "babel-runtime": "6.26.0",
                 "hash-sum": "1.0.2",
-                "loader-utils": "0.2.17",
+                "loader-utils": "1.1.0",
                 "md5": "2.2.1",
                 "parse5": "2.2.3",
                 "source-map": "0.5.7",
@@ -12370,7 +12409,7 @@
                 "weex-styler": "0.3.0",
                 "weex-templater": "0.3.5",
                 "weex-transformer": "0.4.5",
-                "weex-vue-loader": "0.5.1"
+                "weex-vue-loader": "0.5.5"
             }
         },
         "weex-picker": {
@@ -12440,9 +12479,9 @@
             }
         },
         "weex-template-compiler": {
-            "version": "2.5.4-weex.0",
-            "resolved": "https://registry.npmjs.org/weex-template-compiler/-/weex-template-compiler-2.5.4-weex.0.tgz",
-            "integrity": "sha512-Dsn1V29ZN3UcEJqH3JIgaGEZgSI2TD6jrBEyYO8slVpHifBBd8lKe7HHrKhsux360VMtuKof+ilYKSOl9+jxjA==",
+            "version": "2.5.11-weex.0",
+            "resolved": "https://registry.npmjs.org/weex-template-compiler/-/weex-template-compiler-2.5.11-weex.0.tgz",
+            "integrity": "sha512-2M8leSk+xHoqHDH0qLDHCMYnaX+QPQiVDJ6PPb5itVNQstXa2B/ywaMFxNnReGMeJ2UW03jvnryce9aQNqujbw==",
             "dev": true,
             "requires": {
                 "he": "1.1.1"
@@ -12511,7 +12550,7 @@
                         "jsonfile": "2.4.0",
                         "klaw": "1.3.1",
                         "path-is-absolute": "1.0.1",
-                        "rimraf": "2.6.1"
+                        "rimraf": "2.6.2"
                     }
                 },
                 "jsonfile": {
@@ -12557,16 +12596,15 @@
             "integrity": "sha1-dOWGv79ujf/eJuOx1GzgsI/Cl08="
         },
         "weex-vue-loader": {
-            "version": "0.5.1",
-            "resolved": "https://registry.npmjs.org/weex-vue-loader/-/weex-vue-loader-0.5.1.tgz",
-            "integrity": "sha512-JzCCSHj7p2LmQmwhy6P/4JhuPDeYuw8D3T8q7L8h+HgDt7ZMSD6WI/gEHVrOLOYdYNwvA5mc6BXNwR17AFcofw==",
+            "version": "0.5.5",
+            "resolved": "https://registry.npmjs.org/weex-vue-loader/-/weex-vue-loader-0.5.5.tgz",
+            "integrity": "sha512-yXrOK7rgdBIBkIFZZd6jHMJelAVdlMr+9//FcVA9vVgnDAMIG3OZyInzkEtjF7UyP4cfDpnWEphvlSQ4V3fAVA==",
             "dev": true,
             "requires": {
                 "consolidate": "0.14.5",
                 "hash-sum": "1.0.2",
                 "he": "1.1.1",
                 "js-beautify": "1.6.14",
-                "loader-utils": "0.2.17",
                 "lru-cache": "4.1.1",
                 "object-assign": "4.1.1",
                 "postcss": "6.0.14",
@@ -12577,7 +12615,7 @@
                 "vue-template-compiler": "2.5.11",
                 "vue-template-es2015-compiler": "1.5.3",
                 "weex-styler": "0.3.0",
-                "weex-template-compiler": "2.5.4-weex.0"
+                "weex-template-compiler": "2.5.11-weex.0"
             },
             "dependencies": {
                 "ansi-styles": {
@@ -12632,16 +12670,6 @@
                     "dev": true,
                     "requires": {
                         "has-flag": "2.0.0"
-                    }
-                },
-                "vue-template-compiler": {
-                    "version": "2.5.11",
-                    "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.5.11.tgz",
-                    "integrity": "sha512-tlEyfeK1TkoO/+w7QIYP1fjYEuJSf60XchxYH3gUSYKeW4blPqM2BtA29y50fU6Tjm9eLUgUy8qGMA2euOr4Qw==",
-                    "dev": true,
-                    "requires": {
-                        "de-indent": "1.0.2",
-                        "he": "1.1.1"
                     }
                 }
             }

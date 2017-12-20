@@ -158,8 +158,7 @@ const weexConfig = {
       test: /\.js$/,
       use: [{
         loader: 'babel-loader'
-      }],
-      exclude: /node_modules(?!(\/|\\).*(weex).*)/
+      }]
     },
     {
       test: /\.vue(\?[^?]+)?$/,
