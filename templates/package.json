@@ -75,7 +75,7 @@
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-merge": "^4.1.0",
-    "weex-loader": "^0.6.5"
+    "weex-loader": "^0.6.6"
   },
   "optionalDependencies": {
     "ios-deploy": "^1.9.0"

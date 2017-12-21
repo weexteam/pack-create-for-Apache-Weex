@@ -12391,9 +12391,9 @@
             "integrity": "sha1-hcj4IK4hfslVDDWf/m5nV78i21c="
         },
         "weex-loader": {
-            "version": "0.6.5",
-            "resolved": "https://registry.npmjs.org/weex-loader/-/weex-loader-0.6.5.tgz",
-            "integrity": "sha512-Jc/AvJYF4inPj5T4KZy02l9JZM4wx1FL/eH2YjRietAWRJaiue3TZldv+J8IAHZTHzRkUllJyCaQU9AyUMPS6Q==",
+            "version": "0.6.6",
+            "resolved": "https://registry.npmjs.org/weex-loader/-/weex-loader-0.6.6.tgz",
+            "integrity": "sha512-PTobi9jqgSyyVXWBi45g5qMj6Pr8YRh9sDL2N0/3v3O7Tx7XWhiyLIYUnu79ZxLyW7mDS89E9LE7iStbFYAmNA==",
             "dev": true,
             "requires": {
                 "babel-loader": "6.4.1",
