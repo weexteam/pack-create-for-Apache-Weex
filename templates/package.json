@@ -9,7 +9,7 @@
     "build:prod": "webpack --env.NODE_ENV=production",
     "build:plugin": "webpack --env.NODE_ENV=plugin",
     "clean": "rimraf ./web/build",
-    "dev": "webpack --env.NODE_ENV=dev --progress",
+    "dev": "webpack --env.NODE_ENV=common --progress --watch",
     "unit": "karma start test/unit/karma.conf.js",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",

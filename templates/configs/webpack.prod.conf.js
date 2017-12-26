@@ -36,7 +36,7 @@ const productionConfig = webpackMerge(commonConfig[0], {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-path
      */
-    path: helpers.rootNode('web/build'),
+    path: helpers.rootNode('release/web'),
     /**
      * Specifies the name of each output file on disk.
      * IMPORTANT: You must not specify an absolute path here!

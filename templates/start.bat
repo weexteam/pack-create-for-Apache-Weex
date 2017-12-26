@@ -8,5 +8,5 @@ echo "*                      https://github.com/alibaba/weex                    
 echo "*****************************************************************************"
 
 pushd %~dp0
-npm run serve
+npm run dev
 popd
