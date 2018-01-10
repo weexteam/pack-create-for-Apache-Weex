@@ -30,6 +30,7 @@ const WeexpackLogger = WeexpackCommon.CordovaLogger.get();
 let events = WeexpackCommon.events;
 
 const utils = require('./utils/index');
+const getGitUser = require('./utils/git-user');
 /**
  * @desc Sets up to forward events to another instance, or log console.
  * This will make the create internal events visible outside
@@ -49,35 +50,36 @@ const setupEvents = (externalEventEmitter) => {
   }
   return events;
 };
+
 /**
  * @desc Copies template files, and directories into a weex project directory.
  * @param {string} templateDir - Template directory
  * @param {string} projectDir - Project directory
- * @param {boolean} isSubDir - boolean is true if template has subdirectory structure
  */
-const copyTemplateFiles = (templateDir, projectDir, isSubDir) => {
+const copyTemplateFiles = (templateDir, projectDir, config) => {
   let copyPath;
   let templateFiles; // Current file
   templateFiles = fs.readdirSync(templateDir);
   // Remove directories, and files that are unwanted
-  if (!isSubDir) {
-    const excludes = [
-      'dist',
-      'npm-debug.log',
-      '.git',
-      '.DS_Store',
-      '.temp',
-      'node_modules',
-      'hooks',
-      'plugins/plugin.js',
-      'platform/android',
-      'platform/ios',
-      'web/build'
-    ];
-    templateFiles = templateFiles.filter(function (value) {
-      return excludes.indexOf(value) < 0;
-    });
+  const excludes = [
+    'dist',
+    'npm-debug.log',
+    '.git',
+    '.DS_Store',
+    '.temp',
+    'node_modules',
+    'hooks',
+    'plugins/plugin.js',
+    'platform/android',
+    'platform/ios',
+    'web/build'
+  ];
+  if (config.disableUnitTest) {
+    excludes.push('test');
   }
+  templateFiles = templateFiles.filter(function (value) {
+    return excludes.indexOf(value) < 0;
+  });
   // Copy each template file after filters
   for (let i = 0; i < templateFiles.length; i++) {
     copyPath = path.resolve(templateDir, templateFiles[i]);
@@ -93,14 +95,64 @@ const isEmptyDir = (dir) => {
   if (contents.length === 0) {
     return true;
   }
+  else if (contents.length === 1 && contents[0] === '.wx') {
+    return true;
+  }
   return false;
+};
+
+/**
+ * @desc generate a config.json on project root.
+ * @param {string} diretory 
+ * @param {Object} config 
+ */
+const generateWxConfigFile = (diretory, config) => {
+  const configRoot = path.join(diretory, '.wx');
+  const configFilePath = path.join(configRoot, 'config.json');
+  const dirAlreadyExisted = fs.existsSync(configRoot);
+  if (!dirAlreadyExisted) {
+    fs.mkdirSync(configRoot);
+  }
+  if (!fs.existsSync(configFilePath)) {
+    fs.open(configFilePath, 'w+', '0666', (err, fd) => {
+      if (err) {
+        throw new WeexpackError('Create `.wx/config.json` fail.');
+      }
+      fs.writeFileSync(configFilePath, JSON.stringify(config, null, 2));
+    });
+  }
+  else {
+    fs.writeFileSync(configFilePath, JSON.stringify(config, null, 2));
+  }
+};
+
+/**
+ * @desc Rewrite package content by config.
+ * @param {String} dir 
+ * @param {Object} config 
+ */
+const rewritePackagejson = (dir, config) => {
+  const packageJsonPath = path.join(dir, 'package.json');
+  if (!fs.existsSync(packageJsonPath) || !config || config.length < 1) {
+    return;
+  }
+  const packageConfigs = require(packageJsonPath);
+  packageConfigs.name = config.name || packageConfigs.name;
+  packageConfigs.description = config.description || packageConfigs.description;
+  packageConfigs.version = config.version || packageConfigs.version;
+  packageConfigs.author = config.author || getGitUser();
+  if (!config.unit) {
+    delete packageConfigs.scripts.unit;
+    packageConfigs.scripts.test = 'echo "Error: no test specified" && exit 1';
+  }
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageConfigs, null, 2));
 };
 
 /**
  * @desc check the diretory is empty or not.
  * @param {string} dir - directory where the project will be created. Required.
- * @param {string} optionalId - app id. Required (but be "undefined")
- * @param {string} optionalName - app name. Required (but can be "undefined"). 
+ * @param {string} optionalId - app id. Required (but can be "undefined")
+ * @param {string} optionalName - app name. Required. 
  * @param {object|string} cfg - extra config to be saved in .cordova/config.json Required (but can be "{}").
  * @param {object} extEvents - An EventEmitter instance that will be used for logging purposes. Required (but can be "undefined"). 
  * @param {boolean} autoInstall - auto install npm packages in project or not.
@@ -123,6 +175,9 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
     if (optionalName) {
       cfg.name = optionalName;
     }
+    if (!cfg.name) {
+      cfg.name = path.basename(dir);
+    }
     // Make absolute.
     dir = path.resolve(dir);
     if (fs.existsSync(dir) && !isEmptyDir(dir)) {
@@ -141,11 +196,14 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
     if (!dirAlreadyExisted) {
       fs.mkdirSync(dir);
     }
+    generateWxConfigFile(dir, cfg);
     // Get the file from local diretory.
-    copyTemplateFiles(templateDir, dir);
+    copyTemplateFiles(templateDir, dir, cfg);
+    // Rewrite package.json.
+    rewritePackagejson(dir, cfg);
   }).then(() => {
     if (autoInstall) {
-      const spinner = ora('downloading dependences');
+      const spinner = ora('Download packages... ');
       events.emit('log', 'Installing npm packages in project.');
       spinner.start();
       utils.exec('npm install', dir, false).then(() => {

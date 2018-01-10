@@ -12,9 +12,9 @@ const exec = (command, cwd, quiet) => {
         resolve();
       });
       if (!quiet) {
-        // console.log(process.stdout)
         child.stdout.pipe(process.stdout);
       }
+      // child.stdout.pipe(process.stderr);
     }
     catch (e) {
       console.error('execute command failed :', command);
