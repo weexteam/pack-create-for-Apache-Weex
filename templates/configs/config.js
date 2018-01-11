@@ -5,8 +5,8 @@ const ip = require('ip').address();
 const config = {
   root: ROOT,
   // webpack-dev-server
-  pluginConfigPath: 'plugins/plugin.json',
-  pluginFilePath: 'plugins/plugin.js',
+  pluginConfigPath: 'plugins/plugins.json',
+  pluginFilePath: 'plugins/plugins.js',
   // common
   templateDir: '.temp',
   entryFilePath: './src/entry.js',

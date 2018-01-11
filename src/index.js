@@ -21,7 +21,6 @@ const fs = require('fs-extra');
 const Q = require('q');
 const shell = require('shelljs');
 const chalk = require('chalk');
-const ora = require('ora');
 
 const validateIdentifier = require('valid-identifier');
 const WeexpackCommon = require('weexpack-common');
@@ -202,87 +201,24 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
     // Rewrite package.json.
     rewritePackagejson(dir, cfg);
   }).then(() => {
-    if (autoInstall) {
-      const spinner = ora('Download packages... ');
-      events.emit('log', 'Installing npm packages in project.');
-      spinner.start();
-      utils.exec('npm install', dir, false).then(() => {
-        spinner.stop();
-        const commandsWithDesc = [
-          {
-            name: 'npm start',
-            desc: [
-              'Starts the development server for you to preview your weex page on browser',
-              'You can also scan the QR code using weex playground to preview weex page on native'
-            ]
-          },
-          {
-            name: 'npm run dev',
-            desc: [
-              'Open the code compilation task in watch mode'
-            ]
-          },
-          {
-            name: 'npm run ios',
-            desc: [
-              '(Mac only, requires Xcode)',
-              'Starts the development server and loads your app in an iOS simulator'
-            ]
-          },
-          {
-            name: 'npm run android',
-            desc: [
-              '(Requires Android build tools)',
-              'Starts the development server and loads your app on a connected Android device or emulator'
-            ]
-          },
-          {
-            name: 'npm run pack:ios',
-            desc: [
-              '(Mac only, requires Xcode)',
-              'Packaging ios project into ipa package'
-            ]
-          },
-          {
-            name: 'npm run pack:android',
-            desc: [
-              '(Requires Android build tools)',
-              'Packaging android project into apk package'
-            ]
-          },
-          {
-            name: 'npm run pack:web',
-            desc: [
-              'Packaging html5 project into `web/build` folder'
-            ]
-          },
-          {
-            name: 'npm run test',
-            desc: [
-              'Starts the test runner'
-            ]
-          }
-        ];
-        events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
-        events.emit('log', '\nInside that directory, you can run several commands:\n');
-
-        commandsWithDesc.forEach(c => {
-          events.emit('log', `\n  ${chalk.yellow(c.name)}`);
-          c.desc.forEach(d => {
-            events.emit('log', `  ${d}`);
-          });
-        });
-
-        events.emit('log', `\nTo get started:\n`);
-        events.emit('log', chalk.yellow(`  cd ${path.basename(dir)}`));
-        events.emit('log', chalk.yellow(`  npm start`));
-        events.emit('log', `\nEnjoy your hacking time!`);
+    if (!autoInstall) {
+      events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
+    }
+    if (autoInstall === 'yarn') {
+      events.emit('log', 'Installing dependencies using yarn...');
+      utils.exec('yarn install', dir, false).then(() => {
+        utils.helper(events, dir);
       }).catch(e => {
         events.emit('error', e);
       });
     }
     else {
-      events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
+      events.emit('log', 'Installing dependencies using npm...');
+      utils.exec('npm install', dir, false).then(() => {
+        utils.helper(events, dir);
+      }).catch(e => {
+        events.emit('error', e);
+      });
     }
   });
 };
