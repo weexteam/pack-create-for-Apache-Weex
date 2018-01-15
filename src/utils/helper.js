@@ -1,7 +1,7 @@
 const path = require('path');
 const chalk = require('chalk');
 
-const helper = (dir, events) => {
+const helper = (events, dir) => {
   const commandsWithDesc = [
     {
       name: 'npm start',
@@ -57,8 +57,10 @@ const helper = (dir, events) => {
       ]
     }
   ];
+  console.log('test');
   events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
   events.emit('log', '\nInside that directory, you can run several commands:\n');
+  console.log('te---st');
 
   commandsWithDesc.forEach(c => {
     events.emit('log', `\n  ${chalk.yellow(c.name)}`);
@@ -73,6 +75,4 @@ const helper = (dir, events) => {
   events.emit('log', `\nEnjoy your hacking time!`);
 };
 
-module.exports = {
-  helper
-};
+module.exports = helper;

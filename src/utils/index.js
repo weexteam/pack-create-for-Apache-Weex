@@ -1,8 +1,8 @@
 const childProcess = require('child_process');
 
-const {
-  helper
-} = require('./helper');
+const helper = require('./helper');
+const gituser = require('./gituser');
+
 /**
  * @desc excecute command on `cwd`.
  * @param {string} command 
@@ -64,5 +64,6 @@ const spawn = (command, cwd, quiet) => {
 module.exports = {
   exec,
   spawn,
-  helper
+  helper,
+  gituser
 };

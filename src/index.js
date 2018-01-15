@@ -28,8 +28,8 @@ const WeexpackError = WeexpackCommon.CordovaError;
 const WeexpackLogger = WeexpackCommon.CordovaLogger.get();
 let events = WeexpackCommon.events;
 
-const utils = require('./utils/index');
-const getGitUser = require('./utils/git-user');
+const utils = require('./utils');
+
 /**
  * @desc Sets up to forward events to another instance, or log console.
  * This will make the create internal events visible outside
@@ -139,7 +139,7 @@ const rewritePackagejson = (dir, config) => {
   packageConfigs.name = config.name || packageConfigs.name;
   packageConfigs.description = config.description || packageConfigs.description;
   packageConfigs.version = config.version || packageConfigs.version;
-  packageConfigs.author = config.author || getGitUser();
+  packageConfigs.author = config.author || utils.gituser();
   if (!config.unit) {
     delete packageConfigs.scripts.unit;
     packageConfigs.scripts.test = 'echo "Error: no test specified" && exit 1';
@@ -204,21 +204,23 @@ module.exports = (dir, optionalId, optionalName, cfg, extEvents, autoInstall) =>
     if (!autoInstall) {
       events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
     }
-    if (autoInstall === 'yarn') {
-      events.emit('log', 'Installing dependencies using yarn...');
-      utils.exec('yarn install', dir, false).then(() => {
-        utils.helper(events, dir);
-      }).catch(e => {
-        events.emit('error', e);
-      });
-    }
     else {
-      events.emit('log', 'Installing dependencies using npm...');
-      utils.exec('npm install', dir, false).then(() => {
-        utils.helper(events, dir);
-      }).catch(e => {
-        events.emit('error', e);
-      });
+      if (autoInstall === 'yarn') {
+        events.emit('log', 'Installing dependencies using yarn...');
+        utils.exec('yarn install', dir, false).then(() => {
+          utils.helper(events, dir);
+        }).catch(e => {
+          events.emit('error', e);
+        });
+      }
+      else {
+        events.emit('log', 'Installing dependencies using npm...');
+        utils.exec('npm install', dir, false).then(() => {
+          utils.helper(events, dir);
+        }).catch(e => {
+          events.emit('error', e);
+        });
+      }
     }
   });
 };
