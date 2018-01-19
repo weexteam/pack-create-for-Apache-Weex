@@ -57,8 +57,6 @@ describe('create end-to-end', function () {
         '.babelrc',
         'android.config.json',
         'ios.config.json',
-        'start',
-        'start.bat',
         'webpack.config.js',
         'src',
         'web',
