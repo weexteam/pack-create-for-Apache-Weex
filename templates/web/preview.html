@@ -41,7 +41,7 @@
       function createQRCode (url) {
         var $QR = document.getElementById('qrcode')
         var QR = qrcode(0, 'L')
-        url += '?_wx_tpl=' + url + '&wh_weex=true'
+        url += '?_wx_tpl=' + url
         $QR.setAttribute('href', url)
         QR.addData(url)
         QR.make()
