@@ -57,11 +57,8 @@ const helper = (events, dir) => {
       ]
     }
   ];
-  console.log('test');
   events.emit('log', `\n${chalk.green(`Success! Created ${path.basename(dir)} at ${dir}`)}`);
   events.emit('log', '\nInside that directory, you can run several commands:\n');
-  console.log('te---st');
-
   commandsWithDesc.forEach(c => {
     events.emit('log', `\n  ${chalk.yellow(c.name)}`);
     c.desc.forEach(d => {
