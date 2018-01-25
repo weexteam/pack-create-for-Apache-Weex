@@ -18,7 +18,7 @@
     "web": "npm run serve",
     "android": "weex run android",
     "pack:ios": "npm run clean && weex build ios",
-    "pack:android": "npm run clean && weex build ios",
+    "pack:android": "npm run clean && weex build android",
     "pack:web": "npm run clean && npm run build:prod"
   },
   "keywords": [
