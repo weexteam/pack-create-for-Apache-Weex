@@ -15,6 +15,7 @@ CVS
 
 # node_modules
 templates/node_modules/*
+templates/release/*
 node_modules
 node_modules/*
 node_module/.bin/*

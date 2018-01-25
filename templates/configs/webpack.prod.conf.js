@@ -2,18 +2,42 @@ const commonConfig = require('./webpack.common.conf');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 // tools
 const ip = require('ip').address();
+const os = require('os');
 const chalk = require('chalk');
 const path = require('path');
 const webpack = require('webpack');
-const helpers = require('./helper');
+const helper = require('./helper');
 const config = require('./config');
 
-console.log(`${chalk.green(`Package web project at ${chalk.bold(path.resolve('./web/build'))}!`)}`)
+console.log(`${chalk.green(`Package web project at ${chalk.bold(path.resolve('./release/web'))}!`)}`)
 /**
  * Webpack Plugins
  */
+const UglifyJsparallelPlugin = require('webpack-uglify-parallel');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+
+/**
+ * Generate multiple entrys
+ * @param {Array} entry 
+ */
+const generateMultipleEntrys = (entry) => {
+  const entrys = Object.keys(entry);
+  const htmlPlugin = entrys.map(name => {
+    return new HtmlWebpackPlugin({
+      filename: name + '.html',
+      template: helper.rootNode(`web/index.html`),
+      isDevServer: true,
+      chunksSortMode: 'dependency',
+      inject: true,
+      chunks: [name],
+      // production
+      minimize: true
+    })
+  })
+  return htmlPlugin;
+}
+
 /**
  * Webpack configuration for browser.
  */
@@ -36,7 +60,7 @@ const productionConfig = webpackMerge(commonConfig[0], {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-path
      */
-    path: helpers.rootNode('release/web'),
+    path: helper.rootNode('release/web'),
     /**
      * Specifies the name of each output file on disk.
      * IMPORTANT: You must not specify an absolute path here!
@@ -83,9 +107,7 @@ const productionConfig = webpackMerge(commonConfig[0], {
      *
      * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
      */
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true
-    }),
+    ...generateMultipleEntrys(commonConfig[0].entry),
     /*
      * Plugin: HtmlWebpackPlugin
      * Description: Simplifies creation of HTML files to serve your webpack bundles.
@@ -108,8 +130,80 @@ const productionConfig = webpackMerge(commonConfig[0], {
      */
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
+    }),
+    /*
+     * Plugin: UglifyJsparallelPlugin
+     * Description: Identical to standard uglify webpack plugin
+     * with an option to build multiple files in parallel
+     *
+     * See: https://www.npmjs.com/package/webpack-uglify-parallel
+     */
+    new UglifyJsparallelPlugin({
+      workers: os.cpus().length,
+      mangle: true,
+      compressor: {
+        warnings: false,
+        drop_console: true,
+        drop_debugger: true
+      }
     })
   ]
 });
+
+/**
+ * Webpack configuration for weex.
+ */
+const weexConfig = webpackMerge(commonConfig[1], {
+  /**
+   * Options affecting the output of the compilation.
+   *
+   * See: http://webpack.github.io/docs/configuration.html#output
+   */
+  output: {
+    /**
+     * The output directory as absolute path (required).
+     *
+     * See: http://webpack.github.io/docs/configuration.html#output-path
+     */
+    path: helper.rootNode('dist'),
+    /**
+     * Specifies the name of each output file on disk.
+     * IMPORTANT: You must not specify an absolute path here!
+     *
+     * See: http://webpack.github.io/docs/configuration.html#output-filename
+     */
+    filename: '[name].js'
+  },
+  /*
+   * Add additional plugins to the compiler.
+   *
+   * See: http://webpack.github.io/docs/configuration.html#plugins
+   */
+  plugins: [
+    /*
+     * Plugin: UglifyJsparallelPlugin
+     * Description: Identical to standard uglify webpack plugin
+     * with an option to build multiple files in parallel
+     *
+     * See: https://www.npmjs.com/package/webpack-uglify-parallel
+     */
+    new UglifyJsparallelPlugin({
+      workers: os.cpus().length,
+      mangle: true,
+      compressor: {
+        warnings: false,
+        drop_console: true,
+        drop_debugger: true
+      }
+    })
+  ]
+})
+
+// build source to weex_bundle with watch mode.
+webpack(weexConfig, (err, stats) => {
+  if (err) {
+    console.err('COMPILE ERROR:', err.stack)
+  }
+})
 
 module.exports = productionConfig

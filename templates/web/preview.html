@@ -33,6 +33,7 @@
   </div>
   <script>
     (function(){
+      const page = getUrlParam('page');
       function getUrlParam (key) {
         var reg = new RegExp('[?|&]' + key + '=([^&]+)')
         var match = location.search.match(reg)
@@ -47,9 +48,12 @@
         QR.make()
         $QR.innerHTML = QR.createImgTag(6, 12)
       }
-      // TODO: get local ip address
+      if (page) {
+        var $preview = document.getElementById('preview')
+        $preview.src = `/${page.replace('.js', '')}.html`;
+      }
       var host = window.location.host;
-      createQRCode(`http://${host}/dist/${getUrlParam('page') || 'index.js'}`)
+      createQRCode(`http://${host}/dist/${page || 'index.js'}`)
     })();
   </script>
 </body>

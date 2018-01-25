@@ -19,6 +19,26 @@ const utils = require('./utils');
 const helper = require('./helper');
 
 /**
+ * Generate multiple entrys
+ * @param {Array} entry 
+ */
+const generateHtmlWebpackPlugin = (entry) => {
+  const entrys = Object.keys(entry);
+  const htmlPlugin = entrys.map(name => {
+
+    return new HtmlWebpackPlugin({
+      filename: name + '.html',
+      template: helper.rootNode(`web/index.html`),
+      isDevServer: true,
+      chunksSortMode: 'dependency',
+      inject: true,
+      chunks: [name]
+    })
+  })
+  return htmlPlugin;
+}
+
+/**
  * Webpack configuration for browser.
  */
 const devWebpackConfig = webpackMerge(commonConfig[0], {
@@ -62,12 +82,7 @@ const devWebpackConfig = webpackMerge(commonConfig[0], {
      *
      * See: https://github.com/ampedandwired/html-webpack-plugin
      */
-    new HtmlWebpackPlugin({
-      template: helper.rootNode('web/index.html'),
-      isDevServer: true,
-      chunksSortMode: 'dependency',
-      inject: 'head'
-    }),
+    ...generateHtmlWebpackPlugin(commonConfig[0].entry),
     /*
      * Plugin: ScriptExtHtmlWebpackPlugin
      * Description: Enhances html-webpack-plugin functionality
@@ -132,7 +147,6 @@ module.exports = new Promise((resolve, reject) => {
       // add port to devServer config
       devWebpackConfig.devServer.port = port
       devWebpackConfig.devServer.public = `${ip}:${port}`
-
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
