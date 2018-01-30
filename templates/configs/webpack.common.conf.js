@@ -29,7 +29,7 @@ const getEntryFileContent = (entryPath, vueFilePath) => {
     entryContents = entryContents.replace(/weex\.init/, match => `${contents}${match}`);
     contents = ''
   }
-  contents += `\nimport App from '${relativeVuePath}';\n`;
+  contents += `\nconst App = require('${relativeVuePath}');\n`;
   contents += `App.el = '#root';\n`;
   contents += `new Vue(App);\n`;
   // console.log(entryContents)
