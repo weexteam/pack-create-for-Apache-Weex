@@ -22,7 +22,8 @@ module.exports = (dir, dirname, template, extEvents, options, isRandomPath) => {
     isRandomPath = extEvents;
     extEvents = null;
     options = null;
-  } else if (typeof options === 'boolean') {
+  }
+  else if (typeof options === 'boolean') {
     isRandomPath = options;
     options = null;
   }

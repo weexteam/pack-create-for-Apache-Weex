@@ -1,6 +1,6 @@
 {
   "name": "weexpack-create",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "weexpack create module. Creates new project from default or template",
   "main": "index.js",
   "repository": {
@@ -46,7 +46,7 @@
     "dev": "babel src --out-dir lib --watch",
     "test": "mocha test/e2e/test.js",
     "lint": "eslint src --fix",
-    "prepublish": "npm run lint && npm run test && npm run build"
+    "prepublish": "npm run lint && npm run build && npm run test"
   },
   "bin": {
     "weexpack-create": "lib/index.js"
