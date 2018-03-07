@@ -28,16 +28,19 @@ Handlebars.registerHelper('unless_eq', function (a, b, opts) {
  * @param {String} src
  * @param {String} dest
  * @param {Function} done
+ * @param {boolean} isRandomPath
  */
 
-module.exports = function generate (name, src, dest, done) {
+module.exports = function generate (name, src, dest, done, isRandomPath) {
   const opts = getOptions(name, src);
   const metalsmith = Metalsmith(path.join(src, 'template'));
+  // if dest is a random path then pass it to templates
+  const randomPath = isRandomPath ? { dest } : {};
   const data = Object.assign(metalsmith.metadata(), {
     destDirName: name,
     inPlace: dest === process.cwd(),
     noEscape: true
-  });
+  }, randomPath);
   opts.helpers && Object.keys(opts.helpers).map(key => {
     Handlebars.registerHelper(key, opts.helpers[key]);
   });

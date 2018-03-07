@@ -15,10 +15,20 @@ const getTemplatePath = localpath.getTemplatePath;
  * @param {string} dir - directory where the project will be created. Required.
  * @param {string} dirname - name of the directory. Required
  * @param {string} template - tempalte name. Required.
+ * @param {boolean} isRandomPath - whether dir is a random path that user assigned
  */
-module.exports = (dir, dirname, template, extEvents, options) => {
+module.exports = (dir, dirname, template, extEvents, options, isRandomPath) => {
+  if (typeof extEvents === 'boolean') {
+    isRandomPath = extEvents;
+    extEvents = null;
+    options = null;
+  } else if (typeof options === 'boolean') {
+    isRandomPath = options;
+    options = null;
+  }
+
   return new Promise((resolve, reject) => {
-    if (extEvents) {
+    if (extEvents && typeof extEvents !== 'boolean') {
       logger.setupEvents(extEvents);
     }
     if (isLocalPath(template)) {
@@ -27,7 +37,7 @@ module.exports = (dir, dirname, template, extEvents, options) => {
         generate(dirname, templatePath, dir, err => {
           if (err) logger.error(err);
           logger.success(`Generated ${dirname}`);
-        });
+        }, isRandomPath);
       }
       else {
         logger.error(`Local template "${template}" not found.`);
@@ -46,7 +56,7 @@ module.exports = (dir, dirname, template, extEvents, options) => {
         generate(dirname, tmp, dir, err => {
           if (err) logger.error(err);
           logger.success(`Generated ${dirname}`);
-        });
+        }, isRandomPath);
       });
     }
   });
