@@ -38,7 +38,7 @@ module.exports = (dir, dirname, template, extEvents, options, isRandomPath) => {
         generate(dirname, templatePath, dir, err => {
           if (err) logger.error(err);
           logger.success(`Generated ${dirname}`);
-        }, isRandomPath);
+        }, isRandomPath, options && options.defaultProps);
       }
       else {
         logger.error(`Local template "${template}" not found.`);
@@ -57,7 +57,7 @@ module.exports = (dir, dirname, template, extEvents, options, isRandomPath) => {
         generate(dirname, tmp, dir, err => {
           if (err) logger.error(err);
           logger.success(`Generated ${dirname}`);
-        }, isRandomPath);
+        }, isRandomPath, options && options.defaultProps);
       });
     }
   });

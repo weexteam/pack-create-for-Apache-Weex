@@ -31,8 +31,8 @@ Handlebars.registerHelper('unless_eq', function (a, b, opts) {
  * @param {boolean} isRandomPath
  */
 
-module.exports = function generate (name, src, dest, done, isRandomPath) {
-  const opts = getOptions(name, src);
+module.exports = function generate (name, src, dest, done, isRandomPath, options) {
+  const opts = getOptions(name, src, options);
   const metalsmith = Metalsmith(path.join(src, 'template'));
   // if dest is a random path then pass it to templates
   const randomPath = isRandomPath ? { dest } : {};
@@ -124,18 +124,37 @@ function renderTemplateFiles (skipInterpolation) {
       if (skipInterpolation && multimatch([file], skipInterpolation, { dot: true }).length) {
         return next();
       }
-      const str = files[file].contents.toString();
+      const rawFileName = file;
+      const rawBuffer = files[file];
+      const contents = rawBuffer.contents.toString();
       // do not attempt to render files that do not have mustaches
-      if (!/{{([^{}]+)}}/g.test(str)) {
+      if (!/{{([^{}]+)}}/g.test(contents) && !/{{([^{}]+)}}/g.test(file)) {
         return next();
       }
-      render(str, metalsmithMetadata, (err, res) => {
+
+      // first replace filename
+      render(file, metalsmithMetadata, (err, res) => {
         if (err) {
           err.message = `[${file}] ${err.message}`;
           return next(err);
         }
-        files[file].contents = new Buffer(res);
-        next();
+        file = res;
+        // second replace file contents
+        render(contents, metalsmithMetadata, (err, res) => {
+          if (err) {
+            err.message = `[${file}] ${err.message}`;
+            return next(err);
+          }
+          files[file] = rawBuffer;
+          files[file].contents = new Buffer(res);
+
+          // delete old buffer
+          if (rawFileName !== file) {
+            files[rawFileName] = null;
+            delete files[rawFileName];
+          }
+          next();
+        });
       });
     }, done);
   };

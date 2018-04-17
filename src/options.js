@@ -11,15 +11,19 @@ const validateName = require('validate-npm-package-name');
  * @return {Object}
  */
 
-module.exports = function options (name, dir) {
+module.exports = function options (name, dir, opt) {
   const opts = getMetadata(dir);
 
   setDefault(opts, 'name', name);
   setValidateName(opts);
 
   const author = getGitUser();
+
   if (author) {
     setDefault(opts, 'author', author);
+  }
+  for (const key in opt) {
+    setDefault(opts, key, opt[key]);
   }
 
   return opts;
